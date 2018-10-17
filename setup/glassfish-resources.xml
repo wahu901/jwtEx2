@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+    <jdbc-connection-pool datasource-classname="net.sourceforge.jtds.jdbcx.JtdsDataSource" name="testDBPool" wrap-jdbc-objects="false" connection-validation-method="auto-commit" res-type="javax.sql.DataSource">
+      <property name="URL" value="jdbc:jtds:sqlserver://192.168.203.45:1433/testDB"></property>
+      <property name="driverClass" value="net.sourceforge.jtds.jdbc.Driver"></property>
+      <property name="portNumber" value="1433"></property>
+      <property name="databaseName" value="testDB"></property>
+      <property name="User" value="sa"></property>
+      <property name="Password" value="abcd1234"></property>
+      <property name="serverName" value="192.168.203.45"></property>
+      <property name="JDBC30DataSource" value="true"></property>
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="testDBPool" jndi-name="jdbc/testDB"></jdbc-resource>
+
+    <custom-resource factory-class="org.glassfish.resources.custom.factory.PropertiesFactory" 
+        res-type="java.util.Properties" jndi-name="jndi/jwtEx2.config">
+      <property name="callerQuery" value="SELECT PASSWORD FROM TC_USER WHERE ACCOUNT=?"></property>
+      <property name="groupsQuery" value="SELECT CODE from TC_GROUP G, TC_USERGROUP UG, TC_USER U WHERE G.ID=UG.GROUP_ID AND UG.USER_ID=U.ID AND U.ACCOUNT=?"></property>
+    </custom-resource>
+</resources>
